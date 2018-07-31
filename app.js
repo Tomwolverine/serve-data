@@ -14,21 +14,26 @@ const findById = (params, data) => {
         }
     } return null
 }
+
+
 app.get('/', (req,res,next) => {
-
     res.json({cohortData})
-
 })
 
 app.get('/:id',(req,res,next)=> {
-
     const cohort = findById(req.params.id,cohortData)
-
-    res.json({cohort})
+    if(cohort) {
+        res.json({cohort})
+    } else {
+        res.json({
+            error: {
+                "message": "No record found!"
+            }
+        })
+    }
 })
 
 app.listen(port,() => {
     console.log(`Hey yoooo I am listening on ${port}`)
 })
 
-// module.exports = app
